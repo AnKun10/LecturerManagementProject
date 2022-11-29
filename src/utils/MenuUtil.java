@@ -10,7 +10,7 @@ public class MenuUtil {
 
     public void displayLoginMenuFailed() {
         System.out.println("1 - Login Again");
-        System.out.println("2 - Forgot Password");
+        System.out.println("2 - Forget Password");
         System.out.println("0 - Exit Program");
     }
 
