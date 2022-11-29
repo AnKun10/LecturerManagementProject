@@ -1,8 +1,9 @@
 package logic;
 
 import constant.SpecialityConstant;
-import constant.TimeTableConstant;
+import constant.TimetableConstant;
 import constant.WorkPlaceConstant;
+
 import entity.Clazz;
 import main.Main;
 
@@ -13,15 +14,15 @@ public class AdminFunction {
     private Clazz inputClazz(Scanner scanner) {
         String workplace = chooseWorkplace(scanner);
         String speciality = chooseSpeciality(scanner);
-        String timetable = chooseTimeTable(scanner);
+        String timetable = chooseTimetable(scanner);
         return new Clazz(workplace, speciality, timetable);
     }
 
-    private String chooseTimeTable(Scanner scanner) {
-        System.out.println("TIMETABLE");
-        System.out.println("1, TUESDAY, THURSDAY, SATURDAY (6:30 P.M. -> 9:30 P.M.)");
-        System.out.println("2, MONDAY, WEDNESDAY, FRIDAY (6:30 P.M. -> 9:30 P.M.)");
-        System.out.print("Choose timetable: ");
+    private String chooseTimetable(Scanner scanner) {
+        System.out.println("-----TIMETABLE-----");
+        System.out.println("1 - TUESDAY, THURSDAY, SATURDAY (6:30 P.M. -> 9:30 P.M.)");
+        System.out.println("2 - MONDAY, WEDNESDAY, FRIDAY (6:30 P.M. -> 9:30 P.M.)");
+        System.out.print("Choose Timetable: ");
         int choice;
         do {
             System.out.print("Choose Timetable: ");
@@ -34,10 +35,10 @@ public class AdminFunction {
         String timetable = "";
         switch (choice) {
             case 1:
-                timetable = TimeTableConstant.ODDDAYS.value;
+                timetable = TimetableConstant.ODDDAYS.value;
                 break;
             case 2:
-                timetable = TimeTableConstant.EVENDAYS.value;
+                timetable = TimetableConstant.EVENDAYS.value;
                 break;
         }
         return timetable;
@@ -45,9 +46,9 @@ public class AdminFunction {
 
     private String chooseWorkplace(Scanner scanner) {
         System.out.println("WORKPLACES");
-        System.out.println("1, DỊCH VỌNG HẬU");
-        System.out.println("2, NGUYỄN ĐÌNH CHIỂU");
-        System.out.println("3, TỐ HỮU");
+        System.out.println("1 - DỊCH VỌNG HẬU");
+        System.out.println("2 - NGUYỄN ĐÌNH CHIỂU");
+        System.out.println("3 - TỐ HỮU");
         int choice;
         do {
             System.out.print("Choose Workplace: ");
@@ -123,4 +124,5 @@ public class AdminFunction {
             clazzes.add(inputClazz(scanner));
         }
     }
+
 }

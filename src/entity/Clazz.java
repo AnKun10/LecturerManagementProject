@@ -1,7 +1,7 @@
 package entity;
 
 public class Clazz {
-    private String workPlace;
+    private String workplace;
     private String speciality;
     private String timetable;
     private int id;
@@ -15,12 +15,12 @@ public class Clazz {
         this.timetable = timetable;
     }
 
-    public String getWorkPlace() {
-        return workPlace;
+    public String getWorkplace() {
+        return workplace;
     }
 
-    public void setWorkPlace(String workPlace) {
-        this.workPlace = workPlace;
+    public void setWorkplace(String workplace) {
+        this.workplace = workplace;
     }
 
     public String getSpeciality() {
@@ -35,10 +35,20 @@ public class Clazz {
         return id;
     }
 
-    public Clazz(String workPlace, String speciality, String timetable) {
+    public Clazz(String workplace, String speciality, String timetable) {
         this.id = ++autoId;
-        this.workPlace = workPlace;
+        this.workplace = workplace;
         this.speciality = speciality;
         this.timetable = timetable;
+    }
+
+    @Override
+    public String toString() {
+        return "Clazz{" +
+                "workplace='" + workplace + '\'' +
+                ", speciality='" + speciality + '\'' +
+                ", timetable='" + timetable + '\'' +
+                ", id=" + id +
+                '}';
     }
 }

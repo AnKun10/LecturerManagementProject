@@ -4,15 +4,15 @@ import java.util.ArrayList;
 
 public class Lecturer extends Person{
     private ArrayList<String> specialities;
-    private ArrayList<String> workPlaces;
+    private ArrayList<String> workplaces;
     private int id;
     private static int autoId = 0;
 
-    public Lecturer(String name, int age, String username, String email, String phoneNumb, String password, ArrayList<String> specialities, ArrayList<String> workPlaces) {
+    public Lecturer(String name, int age, String username, String email, String phoneNumb, String password, ArrayList<String> specialities, ArrayList<String> workplaces) {
         super(name, age, username, email, phoneNumb, password);
-        this.specialities = specialities;
-        this.workPlaces = workPlaces;
         this.id = ++autoId;
+        this.specialities = specialities;
+        this.workplaces = workplaces;
     }
 
     public Lecturer() {}
@@ -25,12 +25,12 @@ public class Lecturer extends Person{
         this.specialities = specialities;
     }
 
-    public ArrayList<String> getWorkPlaces() {
-        return workPlaces;
+    public ArrayList<String> getWorkplaces() {
+        return workplaces;
     }
 
-    public void setWorkPlaces(ArrayList<String> workPlaces) {
-        this.workPlaces = workPlaces;
+    public void setWorkplaces(ArrayList<String> workplaces) {
+        this.workplaces = workplaces;
     }
 
     public int getId() {
@@ -41,7 +41,7 @@ public class Lecturer extends Person{
     public String toString() {
         return "Lecturer{" +
                 "specialities=" + specialities +
-                ", workPlaces=" + workPlaces +
+                ", workplaces=" + workplaces +
                 ", id=" + id +
                 ", name='" + name + '\'' +
                 ", age=" + age +
