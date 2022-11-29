@@ -6,5 +6,6 @@ public enum WorkPlaceConstant {
     TOHUU("TỐ HỮU");
 
     private String value;
+
     WorkPlaceConstant(String value){this.value = value;}
 }

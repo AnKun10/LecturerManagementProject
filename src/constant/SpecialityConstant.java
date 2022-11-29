@@ -8,5 +8,6 @@ public enum SpecialityConstant {
     STEM("STEM");
 
     private String value;
+
     SpecialityConstant(String value){this.value = value;}
 }

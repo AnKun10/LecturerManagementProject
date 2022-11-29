@@ -27,8 +27,7 @@ public class Clazz {
     }
 
     public Clazz(String workPlace, String speciality, int id) {
-        autoId++;
-        this.id = autoId;
+        this.id = ++autoId;
         this.workPlace = workPlace;
         this.speciality = speciality;
     }
