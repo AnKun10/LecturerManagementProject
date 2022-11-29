@@ -2,7 +2,7 @@ package entity;
 
 import java.util.ArrayList;
 
-public class LecturerSchedule {
+public final class LecturerSchedule {
     private Lecturer lecturer;
     private ArrayList<Clazz> clazzes;
 

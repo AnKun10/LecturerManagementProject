@@ -1,6 +1,6 @@
 package entity;
 
-public class Clazz {
+public final class Clazz {
     private String workplace;
     private String speciality;
     private String timetable;
