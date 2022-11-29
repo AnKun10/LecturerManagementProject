@@ -18,6 +18,37 @@ public class AdminFunction {
         return new Clazz(workplace, speciality, timetable);
     }
 
+    private Clazz chooseClazz(ArrayList<Clazz> clazzes, Scanner scanner) {
+        System.out.print("Enter a Class's id: ");
+        int id;
+        do {
+            id = Main.validator.getInt(scanner);
+            for (Clazz clazz : clazzes) {
+                if (clazz.getId() == id) {
+                    return clazz;
+                }
+            }
+            System.out.println("Invalid Class's id, please choose a Function to continue:");
+            System.out.println("1 - Retry");
+            System.out.println("2 - Back to the Previous Page");
+            System.out.print("Choose a function: ");
+            int choice;
+            do {
+                choice = Main.validator.getInt(scanner);
+                if (choice == 1 || choice == 2) {
+                    break;
+                }
+                System.out.println("Invalid number, please try again!");
+            } while (true);
+            switch (choice) {
+                case 1:
+                    break;
+                case 2:
+                    return null;
+            }
+        } while (true);
+    }
+
     private String chooseTimetable(Scanner scanner) {
         System.out.println("-----TIMETABLE-----");
         System.out.println("1 - TUESDAY, THURSDAY, SATURDAY (6:30 P.M. -> 9:30 P.M.)");
@@ -110,7 +141,14 @@ public class AdminFunction {
         return speciality;
     }
 
+    private void displayClazz(ArrayList<Clazz> clazzes) {
+        for (Clazz clazz : clazzes) {
+            System.out.println(clazz);
+        }
+    }
+
     public void addClazz(ArrayList<Clazz> clazzes, Scanner scanner) {
+        System.out.println("ADD FUNCTION");
         System.out.print("Enter number of new Classes: ");
         int numb;
         do {
@@ -123,6 +161,47 @@ public class AdminFunction {
         for (int i = 0; i < numb; i++) {
             clazzes.add(inputClazz(scanner));
         }
+        System.out.println("Successfully add new Classes!");
     }
 
+    public void removeClazz(ArrayList<Clazz> clazzes, Scanner scanner) {
+        System.out.println("REMOVE FUNCTION");
+        Clazz clazz = chooseClazz(clazzes, scanner);
+        if (clazz == null) {
+            return;
+        }
+        clazzes.remove(clazz);
+        System.out.println("Successfully remove Class " + clazz.getId() + "!");
+    }
+
+    public void changeClazz(ArrayList<Clazz> clazzes, Scanner scanner) {
+        System.out.println("CHANGE FUNCTION");
+        Clazz clazz = chooseClazz(clazzes, scanner);
+        if (clazz == null) {
+            return;
+        }
+        System.out.println("1 - Change Workplace");
+        System.out.println("2 - Change Speciality");
+        System.out.println("3 - Change Timetable");
+        System.out.print("Choose a function: ");
+        int choice;
+        do {
+            choice = Main.validator.getInt(scanner);
+            if (choice >= 1 && choice <= 3) {
+                break;
+            }
+            System.out.println("Invalid number, please try again!");
+        } while (true);
+        switch (choice) {
+            case 1:
+                clazz.setWorkplace(chooseWorkplace(scanner));
+                break;
+            case 2:
+                clazz.setSpeciality(chooseSpeciality(scanner));
+                break;
+            case 3:
+                clazz.setTimetable(chooseTimetable(scanner));
+                break;
+        }
+    }
 }
