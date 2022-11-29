@@ -141,7 +141,7 @@ public class AdminFunction {
         return speciality;
     }
 
-    private void displayClazz(ArrayList<Clazz> clazzes) {
+    public void displayClazz(ArrayList<Clazz> clazzes) {
         for (Clazz clazz : clazzes) {
             System.out.println(clazz);
         }
