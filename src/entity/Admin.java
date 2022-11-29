@@ -1,38 +1,28 @@
 package entity;
 
-public class Admin extends Person{
-    private String phoneNumb;
+public class Admin extends Person {
     private int id;
     private static int autoId = 0;
 
-    public Admin() {
-    }
+    public Admin(){ }
 
-    public Admin(String name, int age, String phoneNumb) {
-        super(name, age);
-        this.phoneNumb = phoneNumb;
+    public Admin(String name, int age, String username, String email, String phoneNumb, String password) {
+        super(name, age, username, email, phoneNumb, password);
         this.id = ++autoId;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public String getPhoneNumb() {
-        return phoneNumb;
-    }
-
-    public void setPhoneNumb(String phoneNumb) {
-        this.phoneNumb = phoneNumb;
-    }
+    public int getId() {return id;}
 
     @Override
     public String toString() {
         return "Admin{" +
-                "phoneNumb='" + phoneNumb + '\'' +
-                ", id=" + id +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", age=" + age +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumb='" + phoneNumb + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 }
