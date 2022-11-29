@@ -148,9 +148,9 @@ public class AdminFunction {
         }
     }
 
-    public void addClazz(ArrayList<Clazz> clazzes, Scanner scanner) {
+    public void addClazz(ArrayList<Clazz> clazzes, Scanner scanner) { //Add new Clazz Function
         System.out.println("ADD FUNCTION");
-        System.out.print("Enter number of new Classes: ");
+        System.out.print("Enter number of new Classes: "); //Enter number of new Clazz
         int numb;
         do {
             numb = Main.validator.getInt(scanner);
