@@ -11,23 +11,24 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AdminFunction {
-    private Clazz inputClazz(Scanner scanner) {
+    private Clazz inputClazz(Scanner scanner) { //Input new Clazz
         String workplace = chooseWorkplace(scanner);
         String speciality = chooseSpeciality(scanner);
         String timetable = chooseTimetable(scanner);
         return new Clazz(workplace, speciality, timetable);
     }
 
-    private Clazz chooseClazz(ArrayList<Clazz> clazzes, Scanner scanner) {
-        System.out.print("Enter a Class's id: ");
+    private Clazz chooseClazz(ArrayList<Clazz> clazzes, Scanner scanner) { //Choose a Clazz in available Clazz's List
+        System.out.print("Enter a Class's id: "); //Find Clazz by Id
         int id;
         do {
             id = Main.validator.getInt(scanner);
             for (Clazz clazz : clazzes) {
-                if (clazz.getId() == id) {
+                if (clazz.getId() == id) { //Successfully find Clazz
                     return clazz;
                 }
             }
+            //Failed to find Clazz -> Choose function
             System.out.println("Invalid Class's id, please choose a Function to continue:");
             System.out.println("1 - Retry");
             System.out.println("2 - Back to the Previous Page");
@@ -41,9 +42,9 @@ public class AdminFunction {
                 System.out.println("Invalid number, please try again!");
             } while (true);
             switch (choice) {
-                case 1:
+                case 1: //Case 1: Retry to choose
                     break;
-                case 2:
+                case 2: //Case 2: User want to go back to the previous page -> return Clazz = null
                     return null;
             }
         } while (true);
