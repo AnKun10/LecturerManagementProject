@@ -26,7 +26,7 @@ public class Clazz {
         return id;
     }
 
-    public Clazz(String workPlace, String speciality, int id) {
+    public Clazz(String workPlace, String speciality) {
         this.id = ++autoId;
         this.workPlace = workPlace;
         this.speciality = speciality;
