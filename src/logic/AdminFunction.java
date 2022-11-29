@@ -75,11 +75,11 @@ public class AdminFunction {
 
     private String chooseSpeciality(Scanner scanner) {
         System.out.println("SPECIALITIES");
-        System.out.println("1, WEB BACK-END");
-        System.out.println("2, WEB FRONT-END");
-        System.out.println("3, DEVOPS & AWS");
-        System.out.println("4, MOBILE");
-        System.out.println("5, STEM");
+        System.out.println("1 - WEB BACK-END");
+        System.out.println("2 - WEB FRONT-END");
+        System.out.println("3 - DEVOPS & AWS");
+        System.out.println("4 - MOBILE");
+        System.out.println("5 - STEM");
         int choice;
         do {
             System.out.print("Choose Speciality: ");

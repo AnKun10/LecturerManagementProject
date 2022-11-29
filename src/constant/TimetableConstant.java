@@ -1,8 +1,8 @@
 package constant;
 
 public enum TimetableConstant {
-    ODDDAYS("THỨ 3,5,7 (6:30 P.M. -> 9:30 P.M.)"),
-    EVENDAYS("THỨ 2,4,6 (6:30 P.M. -> 9:30 P.M.)");
+    ODDDAYS("TUESDAY, THURSDAY, SATURDAY (6:30 P.M. -> 9:30 P.M.)"),
+    EVENDAYS("MONDAY, WEDNESDAY, FRIDAY (6:30 P.M. -> 9:30 P.M.)");
 
     public String value;
 
