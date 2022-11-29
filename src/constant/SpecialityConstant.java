@@ -7,7 +7,7 @@ public enum SpecialityConstant {
     MOBILE("MOBILE"),
     STEM("STEM");
 
-    private String value;
+    public String value;
 
     SpecialityConstant(String value){this.value = value;}
 }

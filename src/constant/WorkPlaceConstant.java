@@ -5,7 +5,7 @@ public enum WorkPlaceConstant {
     NGUYENDINHCHIEU("NGUYỄN ĐÌNH CHIỂU"),
     TOHUU("TỐ HỮU");
 
-    private String value;
+    public String value;
 
     WorkPlaceConstant(String value){this.value = value;}
 }

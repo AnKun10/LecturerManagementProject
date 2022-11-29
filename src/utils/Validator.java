@@ -12,7 +12,7 @@ public class Validator {
                 value = Integer.parseInt(scanner.nextLine());
                 isValid = true;
             } catch (Exception e) {
-                System.out.println("Invalid number, please try again");
+                System.out.println("Invalid input, please try again");
             }
         } while( !isValid );
         return value;
