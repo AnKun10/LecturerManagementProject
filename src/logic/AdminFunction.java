@@ -166,6 +166,8 @@ public class AdminFunction {
 
     public void removeClazz(ArrayList<Clazz> clazzes, Scanner scanner) {
         System.out.println("REMOVE FUNCTION");
+        System.out.println("Available Classes:");
+        displayClazz(clazzes);
         Clazz clazz = chooseClazz(clazzes, scanner);
         if (clazz == null) {
             return;
@@ -176,6 +178,8 @@ public class AdminFunction {
 
     public void changeClazz(ArrayList<Clazz> clazzes, Scanner scanner) {
         System.out.println("CHANGE FUNCTION");
+        System.out.println("Available Classes:");
+        displayClazz(clazzes);
         Clazz clazz = chooseClazz(clazzes, scanner);
         if (clazz == null) {
             return;
