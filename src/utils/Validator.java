@@ -71,7 +71,7 @@ public class Validator {
     }
 
     public boolean phoneNumbIsValid(String phoneNumb, ArrayList<Lecturer> lecturers) {
-        String phoneNumbPattern = RegexConstant.PASSWORD.value; // regex
+        String phoneNumbPattern = RegexConstant.PHONENUMBER.value;
         // to register account, Phone Number cannot be available before
         for (Lecturer lecturer : lecturers) {
             if (lecturer.getPhoneNumb().equals(phoneNumb)) {
