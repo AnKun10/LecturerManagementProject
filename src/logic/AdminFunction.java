@@ -15,105 +15,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AdminFunction {
-
-    //Clazz & Lecturer Shared Function
-    private String chooseTimetable(Scanner scanner) {
-        System.out.println("-----TIMETABLE-----");
-        System.out.println("1 - TUESDAY, THURSDAY, SATURDAY (6:30 P.M. -> 9:30 P.M.)");
-        System.out.println("2 - MONDAY, WEDNESDAY, FRIDAY (6:30 P.M. -> 9:30 P.M.)");
-        System.out.print("Choose Timetable: ");
-        int choice;
-        do {
-            System.out.print("Choose Timetable: ");
-            choice = Main.validator.getInt(scanner);
-            if (choice <= 2 && choice >= 1) {
-                break;
-            }
-            System.out.println("Invalid number, please try again!");
-        } while (true);
-        String timetable = "";
-        switch (choice) {
-            case 1:
-                timetable = TimetableConstant.ODDDAYS.value;
-                break;
-            case 2:
-                timetable = TimetableConstant.EVENDAYS.value;
-                break;
-        }
-        return timetable;
-    }
-
-    private String chooseWorkplace(Scanner scanner) {
-        System.out.println("WORKPLACES");
-        System.out.println("1 - DỊCH VỌNG HẬU");
-        System.out.println("2 - NGUYỄN ĐÌNH CHIỂU");
-        System.out.println("3 - TỐ HỮU");
-        int choice;
-        do {
-            System.out.print("Choose Workplace: ");
-            choice = Main.validator.getInt(scanner);
-            if (choice <= 3 && choice >= 1) {
-                break;
-            }
-            System.out.println("Invalid number, please try again!");
-        } while (true);
-        String workplace = "";
-        switch (choice) {
-            case 1:
-                workplace = WorkPlaceConstant.DICHVONGHAU.value;
-                break;
-            case 2:
-                workplace = WorkPlaceConstant.NGUYENDINHCHIEU.value;
-                break;
-            case 3:
-                workplace = WorkPlaceConstant.TOHUU.value;
-                break;
-        }
-        return workplace;
-    }
-
-    private String chooseSpeciality(Scanner scanner) {
-        System.out.println("SPECIALITIES");
-        System.out.println("1 - WEB BACK-END");
-        System.out.println("2 - WEB FRONT-END");
-        System.out.println("3 - DEVOPS & AWS");
-        System.out.println("4 - MOBILE");
-        System.out.println("5 - STEM");
-        int choice;
-        do {
-            System.out.print("Choose Speciality: ");
-            choice = Main.validator.getInt(scanner);
-            if (choice <= 5 && choice >= 1) {
-                break;
-            }
-            System.out.println("Invalid number, please try again!");
-        } while (true);
-        String speciality = "";
-        switch (choice) {
-            case 1:
-                speciality = SpecialityConstant.WEBBACKEND.value;
-                break;
-            case 2:
-                speciality = SpecialityConstant.WEBFRONTEND.value;
-                break;
-            case 3:
-                speciality = SpecialityConstant.DEVOPSAWS.value;
-                break;
-            case 4:
-                speciality = SpecialityConstant.MOBILE.value;
-                break;
-            case 5:
-                speciality = SpecialityConstant.STEM.value;
-                break;
-        }
-        return speciality;
-    }
-
     //Clazz Functions
     private Clazz inputClazz(Scanner scanner) { //Input new Clazz
-        String workplace = chooseWorkplace(scanner);
-        String speciality = chooseSpeciality(scanner);
-        String timetable = chooseTimetable(scanner);
+        String workplace = Main.sharedFunction.chooseWorkplace(scanner);
+        String speciality = Main.sharedFunction.chooseSpeciality(scanner);
+        String timetable = Main.sharedFunction.chooseTimetable(scanner);
         return new Clazz(workplace, speciality, timetable);
     }
 
@@ -195,13 +101,13 @@ public class AdminFunction {
         } while (true);
         switch (choice) {
             case 1:
-                clazz.setWorkplace(chooseWorkplace(scanner));
+                clazz.setWorkplace(Main.sharedFunction.chooseWorkplace(scanner));
                 break;
             case 2:
-                clazz.setSpeciality(chooseSpeciality(scanner));
+                clazz.setSpeciality(Main.sharedFunction.chooseSpeciality(scanner));
                 break;
             case 3:
-                clazz.setTimetable(chooseTimetable(scanner));
+                clazz.setTimetable(Main.sharedFunction.chooseTimetable(scanner));
                 break;
         }
     }
@@ -239,16 +145,23 @@ public class AdminFunction {
         } while (true);
     }
 
-    private void displayLecturer(ArrayList<Lecturer> lecturers) {
+    public void displayLecturer(ArrayList<Lecturer> lecturers) {
+        System.out.println("DISPLAY LECTURERS FUNCTION");
         for (Lecturer lecturer : lecturers) {
             System.out.println(lecturer);
         }
     }
 
+    public void displayLecturerSchedule(ArrayList<LecturerSchedule> lecturerSchedules) {
+        System.out.println("DISPLAY LECTURERS' SCHEDULE FUNCTION");
+        for (LecturerSchedule lecturerSchedule : lecturerSchedules) {
+            System.out.println(lecturerSchedule);
+        }
+    }
+
     public void removeLecturer(ArrayList<Lecturer> lecturers, Scanner scanner) {
-        System.out.println("REMOVE FUNCTION");
+        System.out.println("REMOVE LECTURER FUNCTION");
         System.out.println("Available Lecturers:");
-        displayLecturer(lecturers);
         Lecturer lecturer = chooseLecturer(lecturers, scanner);
         if (lecturer == null) {
             return;
@@ -257,40 +170,64 @@ public class AdminFunction {
         System.out.println("Successfully remove Lecturer " + lecturer.getId() + "!");
     }
 
-    public void addLecturerSchedule(ArrayList<Lecturer> lecturers, ArrayList<Clazz> clazzes, Scanner scanner) {
-        System.out.println("SCHEDULE FUNCTION");
+    //Case 1: Assigned Suitable Class ?
+    private boolean isAssignableLecturerSchedule(LecturerSchedule lecturerSchedule, Clazz clazz) {
+        if (clazz.isAssign()) {
+            System.out.println("Class " + clazz.getId() + " has been assigned!");
+            return false;
+        }
+        if (lecturerSchedule.getClazzes().size() == 1) {
+            if (lecturerSchedule.getClazzes().get(0).getTimetable().equals(clazz.getTimetable())) {
+                System.out.println("Lecturer " + lecturerSchedule.getLecturer().getName() + " has been assigned on " + clazz.getTimetable());
+                return false;
+            }
+            if (!lecturerSchedule.getLecturer().getSpecialities().equals(clazz.getSpeciality())){
+                System.out.println("Lecturer " + lecturerSchedule.getLecturer().getName() + "'s speciality isn't suitable for Class "+clazz.getId());
+                return false;
+            }
+            if (!lecturerSchedule.getLecturer().getWorkplaces().equals(clazz.getWorkplace())){
+                System.out.println("Lecturer " + lecturerSchedule.getLecturer().getName() + "'s workplace isn't suitable for Class "+clazz.getId());
+                return false;
+            }
+        }
+        return true;
+    }
+
+    //Case 2: Assigned the max Classes ?
+    private boolean isAssignableLecturerSchedule(LecturerSchedule lecturerSchedule) {
+        if (lecturerSchedule.getClazzes().size() == 2) {
+            System.out.println("Lecturer " + lecturerSchedule.getLecturer().getName() + " has been assigned the maximum classes!");
+            return false;
+        }
+        return true;
+    }
+
+    public void addLecturerSchedule(ArrayList<LecturerSchedule> lecturerSchedules, ArrayList<Lecturer> lecturers, ArrayList<Clazz> clazzes, Scanner scanner) {
+        System.out.println("ADD LECTURER SCHEDULE FUNCTION");
         System.out.println("Available Lecturers:");
         displayLecturer(lecturers); //Display Lecturers List
-        Lecturer lecturer = chooseLecturer(lecturers, scanner); //Select a lecturer
-        if (lecturer == null) { //Lecturer == null <=> Admin want to come back to the previous page
-            return;
-        }
-        System.out.println("Available Classes:");
-        displayClazz(clazzes); //Display Classes List
-        int clazzNumb;
+        Lecturer lecturer;
         do {
-            System.out.print("Enter number of Classes for Lecturer " + lecturer.getName() + "(at most 2 Classes/Lecturer): ");
-            clazzNumb = Main.validator.getInt(scanner);
-            if (clazzNumb==1||clazzNumb==2){
-                break;
+            lecturer = chooseLecturer(lecturers, scanner); //Select a lecturer
+            if (lecturer == null) { //Lecturer == null <=> Admin want to come back to the previous page
+                return;
             }
-            System.out.println("Invalid number of Classes, please choose a Function to continue:");
-            System.out.println("1 - Retry");
-            System.out.println("2 - Back to the Previous Page");
-            System.out.print("Choose a function: ");
-            int choice;
-            do {
-                choice = Main.validator.getInt(scanner);
-                if (choice == 1 || choice == 2) {
-                    break;
+            for (LecturerSchedule lecturerSchedule : lecturerSchedules) {
+                if (lecturerSchedule.getLecturer().getId() == lecturer.getId()) { //Case 1: Select a Lecturer that already teach 1 Class
+                    if (!isAssignableLecturerSchedule(lecturerSchedule)) { //The Lecturer has been assigned the max Classes
+                        break;
+                    }
+                    do {
+                        Clazz clazz = chooseClazz(clazzes, scanner); //Select a Class
+                        if (clazz == null) {
+                            return;
+                        }
+                        if (isAssignableLecturerSchedule(lecturerSchedule, clazz)) { //The Lecturer can teach that Class -> Assign
+                            lecturerSchedule.getClazzes().add(clazz);
+                            System.out.println("Successfully assigned Class " + clazz.getId() + " to Lecturer " + lecturer.getName() + "!");
+                        }
+                    } while (true);
                 }
-                System.out.println("Invalid number, please try again!");
-            } while (true);
-            switch (choice) {
-                case 1: //Case 1: Retry to choose
-                    break;
-                case 2: //Case 2: User want to go back to the previous page -> return
-                    return;
             }
         } while (true);
 
@@ -418,4 +355,5 @@ public class AdminFunction {
         System.out.print("Change Admin new Phone Number Successfully! ");
     }
 
+    }
 }

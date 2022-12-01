@@ -4,10 +4,12 @@ import entity.Admin;
 import entity.Clazz;
 import entity.Lecturer;
 import entity.LecturerSchedule;
+import logic.SharedFunction;
 import utils.Validator;
 import java.util.ArrayList;
 
 public class Main {
+    public static SharedFunction sharedFunction = new SharedFunction();
     public static ArrayList<LecturerSchedule> lecturerSchedules = new ArrayList<>();
     public static ArrayList<Clazz> clazzes = new ArrayList<>();
     public static ArrayList<Lecturer> lecturers = new ArrayList<>();
