@@ -69,11 +69,14 @@ public class SharedFunction {
         System.out.println("\"٩(◕‿◕｡)۶Congratulation \"" + username);
         return true;
     }
+
     // change Username
-    public void changeUsername(Scanner scanner, ArrayList<Lecturer> lecturers) {
+    public void changeUsername(Scanner scanner, ArrayList<Lecturer> lecturers, ArrayList<Admin> admins) {
+        String newUsername;
 
     }
     // change Email
+
     // change Phone Number
     // change Password
 }
