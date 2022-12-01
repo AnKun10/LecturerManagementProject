@@ -1,13 +1,14 @@
 package utils;
 
+import constant.RegexConstant;
 import entity.Admin;
 import entity.Lecturer;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.jar.Pack200;
 import java.util.regex.Pattern;
 
 public class Validator {
-
     public int getInt(Scanner scanner) {
         int value = 0;
         boolean isValid = false;
@@ -40,8 +41,7 @@ public class Validator {
 
     public boolean emailIsValid(String email, ArrayList<Lecturer> lecturers) {
         // Use Regex to validate Email
-        String emailPattern =
-                "^[a-zA-Z][\\w-]+@([\\w]+\\.[\\w]+|[\\w]+\\.[\\w]{2,}\\.[\\w]{2,})$";
+        String emailPattern = RegexConstant.EMAIL.value;
         // to register account, the Email cannot be available before
         for (Lecturer lecturer : lecturers) {
             if (lecturer.getEmail().equalsIgnoreCase(email)) {
@@ -61,7 +61,7 @@ public class Validator {
 
     public boolean passIsValid(String password) {
         // Password Length from 7 to 15 digits
-        String passPattern = "^\\w{7,15}$";
+        String passPattern = RegexConstant.PASSWORD.value;
         boolean isValid = Pattern.matches(passPattern, password);
         if (!isValid) {
             System.out.println("Invalid Password, try again!");
@@ -71,7 +71,7 @@ public class Validator {
     }
 
     public boolean phoneNumbIsValid(String phoneNumb, ArrayList<Lecturer> lecturers) {
-        String phoneNumbPattern =""; // regex
+        String phoneNumbPattern = RegexConstant.PASSWORD.value; // regex
         // to register account, Phone Number cannot be available before
         for (Lecturer lecturer : lecturers) {
             if (lecturer.getPhoneNumb().equals(phoneNumb)) {
