@@ -1,8 +1,7 @@
 package utils;
 
+import entity.Admin;
 import entity.Lecturer;
-import entity.Person;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -23,7 +22,7 @@ public class Validator {
         return value;
     }
 
-    public boolean userNameIsValidForLecturer(String username, ArrayList<Lecturer> lecturers) {
+    public boolean userNameIsValid(String username, ArrayList<Lecturer> lecturers) {
         // to register account, username cannot be left blank
         if (username.length() == 0) {
             System.out.println("Username cannot be left blank, please try again.");
@@ -39,7 +38,7 @@ public class Validator {
         return true;
     }
 
-    public boolean emailIsValidForLecturer(String email, ArrayList<Lecturer> lecturers) {
+    public boolean emailIsValid(String email, ArrayList<Lecturer> lecturers) {
         // Use Regex to validate Email
         String emailPattern =
                 "^[a-zA-Z][\\w-]+@([\\w]+\\.[\\w]+|[\\w]+\\.[\\w]{2,}\\.[\\w]{2,})$";
@@ -71,7 +70,7 @@ public class Validator {
         return true;
     }
 
-    public boolean phoneNumbIsValidForLecturer(String phoneNumb, ArrayList<Lecturer> lecturers) {
+    public boolean phoneNumbIsValid(String phoneNumb, ArrayList<Lecturer> lecturers) {
         String phoneNumbPattern =""; // regex
         // to register account, Phone Number cannot be available before
         for (Lecturer lecturer : lecturers) {
@@ -81,42 +80,6 @@ public class Validator {
             }
         }
         // valid Phone Number + Phone Number cannot be available before
-        boolean isValid = Pattern.matches(phoneNumbPattern, phoneNumb);
-        if (!isValid) {
-            System.out.println("Invalid Phone Number, try again!");
-            return false;
-        }
-
-        return true;
-    }
-
-    public boolean userNameIsValidForAdmin(String username) {
-        // to register account, username cannot be left blank
-        if (username.length() == 0) {
-            System.out.println("Username cannot be left blank, try again.");
-            return false;
-        }
-
-        return true;
-    }
-
-    public boolean emailIsValidForAdmin(String email) {
-        // Use regex to validate Email
-        String emailPattern =
-                "^[a-zA-Z][\\w-]+@([\\w]+\\.[\\w]+|[\\w]+\\.[\\w]{2,}\\.[\\w]{2,})$";
-        // Valid Email
-        boolean isValid = Pattern.matches(emailPattern, email);
-        if (!isValid) {
-            System.out.println("Invalid Email, try again!");
-            return false;
-        }
-
-        return true;
-    }
-
-    public boolean phoneNumbIsValidForAdmin(String phoneNumb) {
-        String phoneNumbPattern =""; // regex
-        // valid Phone Number
         boolean isValid = Pattern.matches(phoneNumbPattern, phoneNumb);
         if (!isValid) {
             System.out.println("Invalid Phone Number, try again!");
