@@ -205,15 +205,16 @@ public class AdminFunction {
     public void addLecturerSchedule(ArrayList<LecturerSchedule> lecturerSchedules, ArrayList<Lecturer> lecturers, ArrayList<Clazz> clazzes, Scanner scanner) {
         System.out.println("ADD LECTURER SCHEDULE FUNCTION");
         System.out.println("Available Lecturers:");
-        displayLecturer(lecturers); //Display Lecturers List
         Lecturer lecturer;
         do {
             lecturer = chooseLecturer(lecturers, scanner); //Select a lecturer
+            boolean isFreeLecturer = true; //The selected Lecturer is not scheduled
             if (lecturer == null) { //Lecturer == null <=> Admin want to come back to the previous page
                 return;
             }
             for (LecturerSchedule lecturerSchedule : lecturerSchedules) {
                 if (lecturerSchedule.getLecturer().getId() == lecturer.getId()) { //Case 1: Select a Lecturer that already teach 1 Class
+                    isFreeLecturer = false;
                     if (!isAssignableLecturerSchedule(lecturerSchedule)) { //The Lecturer has been assigned the max Classes
                         break;
                     }
@@ -230,29 +231,6 @@ public class AdminFunction {
                 }
             }
         } while (true);
-
-        ArrayList<Clazz> clazzes4Lecturer = new ArrayList<>(); //Classes that the Selected Lecturer will teach
-        for (int i = 0; i < clazzNumb; i++) {
-            Clazz clazz = chooseClazz(clazzes, scanner); //Select Class
-            if (clazz == null){ //Clazz == null <=> Admin want to come back to the previous page
-                return;
-            }
-            if (clazz.isAssign()){ //Retry if the Class has been assigned to another Lecturer
-                System.out.println("Class "+clazz.getId()+" has been assigned, please try again!");
-                i--;
-                continue;
-            }
-            if (i==1 && clazz.getTimetable().equals(clazzes4Lecturer.get(0).getTimetable())){ //Retry if the Lecturer is assigned a Class with the same Timetable as his/her present Classes
-                System.out.println("Lecturer "+lecturer.getName()+" has already been assigned a Class with the same Timetable!");
-                System.out.println("Please try again!");
-                i--;
-                continue;
-            }
-            clazzes4Lecturer.add(clazz); //Successfully assigned a Class to a Lecturer
-            clazz.setAssign(true);
-            System.out.println("Successfully assigned Class "+clazz.getId()+" to Lecturer "+lecturer.getName()+"!");
-        }
-        Main.lecturerSchedules.add(new LecturerSchedule(lecturer, clazzes4Lecturer));
     }
 
 
@@ -353,7 +331,5 @@ public class AdminFunction {
 
         currentAdmin.setPhoneNumb(phoneNumb);
         System.out.print("Change Admin new Phone Number Successfully! ");
-    }
-
     }
 }
