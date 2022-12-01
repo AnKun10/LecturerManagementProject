@@ -267,6 +267,7 @@ public class AdminFunction {
                 continue;
             }
             lecturerSchedule.getClazzes().add(clazz);
+            clazz.setAssign(true);
             System.out.println("Successfully assign Class "+clazz.getId()+" to Lecturer "+lecturer.getName()+"!");
         }
     }

@@ -42,7 +42,7 @@ public class MenuUtil {
         System.out.println("0 - Back to Lecturer Management Menu");
     }
 
-    public void displayUpdateMenuDetail() {
+    public void displayUpdateMenuDetail() { //
         System.out.println("1 - Add");
         System.out.println("2 - Remove");
         System.out.println("3 - Change");
