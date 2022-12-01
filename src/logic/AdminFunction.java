@@ -6,6 +6,7 @@ import constant.WorkPlaceConstant;
 
 import entity.Clazz;
 import entity.Lecturer;
+import entity.LecturerSchedule;
 import main.Main;
 import utils.Validator;
 
@@ -140,7 +141,7 @@ public class AdminFunction {
             switch (choice) {
                 case 1: //Case 1: Retry to choose
                     break;
-                case 2: //Case 2: User want to go back t o the previous page -> return Clazz = null
+                case 2: //Case 2: User want to go back to the previous page -> return Clazz = null
                     return null;
             }
         } while (true);
@@ -204,9 +205,114 @@ public class AdminFunction {
     }
 
     //Lecturer Functions
-    private Lecturer inputLecturer(Scanner scanner){
-        System.out.print("Enter Lecturer's name: ");
-        String name = Main.validator.getName();
+    private Lecturer chooseLecturer(ArrayList<Lecturer> lecturers, Scanner scanner) {
+        System.out.print("Enter a Lecturer's id: "); //Find Clazz by Id
+        int id;
+        do {
+            id = Main.validator.getInt(scanner);
+            for (Lecturer lecturer : lecturers) {
+                if (lecturer.getId() == id) { //Successfully find Clazz
+                    return lecturer;
+                }
+            }
+            //Failed to find Clazz -> Choose function
+            System.out.println("Invalid Lecturer's id, please choose a Function to continue:");
+            System.out.println("1 - Retry");
+            System.out.println("2 - Back to the Previous Page");
+            System.out.print("Choose a function: ");
+            int choice;
+            do {
+                choice = Main.validator.getInt(scanner);
+                if (choice == 1 || choice == 2) {
+                    break;
+                }
+                System.out.println("Invalid number, please try again!");
+            } while (true);
+            switch (choice) {
+                case 1: //Case 1: Retry to choose
+                    break;
+                case 2: //Case 2: User want to go back to the previous page -> return Lecturer = null
+                    return null;
+            }
+        } while (true);
+    }
+
+    private void displayLecturer(ArrayList<Lecturer> lecturers) {
+        for (Lecturer lecturer : lecturers) {
+            System.out.println(lecturer);
+        }
+    }
+
+    public void removeLecturer(ArrayList<Lecturer> lecturers, Scanner scanner) {
+        System.out.println("REMOVE FUNCTION");
+        System.out.println("Available Lecturers:");
+        displayLecturer(lecturers);
+        Lecturer lecturer = chooseLecturer(lecturers, scanner);
+        if (lecturer == null) {
+            return;
+        }
+        lecturers.remove(lecturer);
+        System.out.println("Successfully remove Lecturer " + lecturer.getId() + "!");
+    }
+
+    public void addLecturerSchedule(ArrayList<Lecturer> lecturers, ArrayList<Clazz> clazzes, Scanner scanner) {
+        System.out.println("SCHEDULE FUNCTION");
+        System.out.println("Available Lecturers:");
+        displayLecturer(lecturers); //Display Lecturers List
+        Lecturer lecturer = chooseLecturer(lecturers, scanner); //Select a lecturer
+        if (lecturer == null) { //Lecturer == null <=> Admin want to come back to the previous page
+            return;
+        }
+        System.out.println("Available Classes:");
+        displayClazz(clazzes); //Display Classes List
+        int clazzNumb;
+        do {
+            System.out.print("Enter number of Classes for Lecturer " + lecturer.getName() + "(at most 2 Classes/Lecturer): ");
+            clazzNumb = Main.validator.getInt(scanner);
+            if (clazzNumb==1||clazzNumb==2){
+                break;
+            }
+            System.out.println("Invalid number of Classes, please choose a Function to continue:");
+            System.out.println("1 - Retry");
+            System.out.println("2 - Back to the Previous Page");
+            System.out.print("Choose a function: ");
+            int choice;
+            do {
+                choice = Main.validator.getInt(scanner);
+                if (choice == 1 || choice == 2) {
+                    break;
+                }
+                System.out.println("Invalid number, please try again!");
+            } while (true);
+            switch (choice) {
+                case 1: //Case 1: Retry to choose
+                    break;
+                case 2: //Case 2: User want to go back to the previous page -> return
+                    return;
+            }
+        } while (true);
+        ArrayList<Clazz> clazzes4Lecturer = new ArrayList<>(); //Classes that the Selected Lecturer will teach
+        for (int i = 0; i < clazzNumb; i++) {
+            Clazz clazz = chooseClazz(clazzes, scanner); //Select Class
+            if (clazz == null){ //Clazz == null <=> Admin want to come back to the previous page
+                return;
+            }
+            if (clazz.isAssign()){ //Retry if the Class has been assigned to another Lecturer
+                System.out.println("Class "+clazz.getId()+" has been assigned, please try again!");
+                i--;
+                continue;
+            }
+            if (i==1 && clazz.getTimetable().equals(clazzes4Lecturer.get(0).getTimetable())){ //Retry if the Lecturer is assigned a Class with the same Timetable as his/her present Classes
+                System.out.println("Lecturer "+lecturer.getName()+" has already been assigned a Class with the same Timetable!");
+                System.out.println("Please try again!");
+                i--;
+                continue;
+            }
+            clazzes4Lecturer.add(clazz); //Successfully assigned a Class to a Lecturer
+            clazz.setAssign(true);
+            System.out.println("Successfully assigned Class "+clazz.getId()+" to Lecturer "+lecturer.getName()+"!");
+        }
+        Main.lecturerSchedules.add(new LecturerSchedule(lecturer, clazzes4Lecturer));
     }
 
 }

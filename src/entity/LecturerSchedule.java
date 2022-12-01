@@ -6,6 +6,11 @@ public final class LecturerSchedule {
     private Lecturer lecturer;
     private ArrayList<Clazz> clazzes;
 
+    public LecturerSchedule(Lecturer lecturer, ArrayList<Clazz> clazzes) {
+        this.lecturer = lecturer;
+        this.clazzes = clazzes;
+    }
+
     public Lecturer getLecturer() {
         return lecturer;
     }

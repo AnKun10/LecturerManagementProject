@@ -4,8 +4,17 @@ public final class Clazz {
     private String workplace;
     private String speciality;
     private String timetable;
+    private boolean isAssign;
     private int id;
     private static int autoId = 0;
+
+    public boolean isAssign() {
+        return isAssign;
+    }
+
+    public void setAssign(boolean assign) {
+        isAssign = assign;
+    }
 
     public String getTimetable() {
         return timetable;
@@ -40,6 +49,7 @@ public final class Clazz {
         this.workplace = workplace;
         this.speciality = speciality;
         this.timetable = timetable;
+        this.isAssign = false;
     }
 
     @Override
@@ -48,6 +58,7 @@ public final class Clazz {
                 "workplace='" + workplace + '\'' +
                 ", speciality='" + speciality + '\'' +
                 ", timetable='" + timetable + '\'' +
+                ", isAssign=" + isAssign +
                 ", id=" + id +
                 '}';
     }
