@@ -89,4 +89,7 @@ public class Validator {
         return true;
     }
 
+    public String getName() {
+        return null;
+    }
 }

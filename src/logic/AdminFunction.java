@@ -5,51 +5,15 @@ import constant.TimetableConstant;
 import constant.WorkPlaceConstant;
 
 import entity.Clazz;
+import entity.Lecturer;
 import main.Main;
+import utils.Validator;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AdminFunction {
-    private Clazz inputClazz(Scanner scanner) { //Input new Clazz
-        String workplace = chooseWorkplace(scanner);
-        String speciality = chooseSpeciality(scanner);
-        String timetable = chooseTimetable(scanner);
-        return new Clazz(workplace, speciality, timetable);
-    }
-
-    private Clazz chooseClazz(ArrayList<Clazz> clazzes, Scanner scanner) { //Choose a Clazz in available Clazz's List
-        System.out.print("Enter a Class's id: "); //Find Clazz by Id
-        int id;
-        do {
-            id = Main.validator.getInt(scanner);
-            for (Clazz clazz : clazzes) {
-                if (clazz.getId() == id) { //Successfully find Clazz
-                    return clazz;
-                }
-            }
-            //Failed to find Clazz -> Choose function
-            System.out.println("Invalid Class's id, please choose a Function to continue:");
-            System.out.println("1 - Retry");
-            System.out.println("2 - Back to the Previous Page");
-            System.out.print("Choose a function: ");
-            int choice;
-            do {
-                choice = Main.validator.getInt(scanner);
-                if (choice == 1 || choice == 2) {
-                    break;
-                }
-                System.out.println("Invalid number, please try again!");
-            } while (true);
-            switch (choice) {
-                case 1: //Case 1: Retry to choose
-                    break;
-                case 2: //Case 2: User want to go back t o the previous page -> return Clazz = null
-                    return null;
-            }
-        } while (true);
-    }
-
+    //Clazz & Lecturer Shared Function
     private String chooseTimetable(Scanner scanner) {
         System.out.println("-----TIMETABLE-----");
         System.out.println("1 - TUESDAY, THURSDAY, SATURDAY (6:30 P.M. -> 9:30 P.M.)");
@@ -142,6 +106,46 @@ public class AdminFunction {
         return speciality;
     }
 
+    //Clazz Functions
+    private Clazz inputClazz(Scanner scanner) { //Input new Clazz
+        String workplace = chooseWorkplace(scanner);
+        String speciality = chooseSpeciality(scanner);
+        String timetable = chooseTimetable(scanner);
+        return new Clazz(workplace, speciality, timetable);
+    }
+
+    private Clazz chooseClazz(ArrayList<Clazz> clazzes, Scanner scanner) { //Choose a Clazz in available Clazz's List
+        System.out.print("Enter a Class's id: "); //Find Clazz by Id
+        int id;
+        do {
+            id = Main.validator.getInt(scanner);
+            for (Clazz clazz : clazzes) {
+                if (clazz.getId() == id) { //Successfully find Clazz
+                    return clazz;
+                }
+            }
+            //Failed to find Clazz -> Choose function
+            System.out.println("Invalid Class's id, please choose a Function to continue:");
+            System.out.println("1 - Retry");
+            System.out.println("2 - Back to the Previous Page");
+            System.out.print("Choose a function: ");
+            int choice;
+            do {
+                choice = Main.validator.getInt(scanner);
+                if (choice == 1 || choice == 2) {
+                    break;
+                }
+                System.out.println("Invalid number, please try again!");
+            } while (true);
+            switch (choice) {
+                case 1: //Case 1: Retry to choose
+                    break;
+                case 2: //Case 2: User want to go back t o the previous page -> return Clazz = null
+                    return null;
+            }
+        } while (true);
+    }
+
     public void displayClazz(ArrayList<Clazz> clazzes) {
         for (Clazz clazz : clazzes) {
             System.out.println(clazz);
@@ -197,6 +201,12 @@ public class AdminFunction {
                 clazz.setTimetable(chooseTimetable(scanner));
                 break;
         }
+    }
+
+    //Lecturer Functions
+    private Lecturer inputLecturer(Scanner scanner){
+        System.out.print("Enter Lecturer's name: ");
+        String name = Main.validator.getName();
     }
 
 }
