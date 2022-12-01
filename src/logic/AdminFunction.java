@@ -4,6 +4,7 @@ import constant.SpecialityConstant;
 import constant.TimetableConstant;
 import constant.WorkPlaceConstant;
 
+import entity.Admin;
 import entity.Clazz;
 import entity.Lecturer;
 import entity.LecturerSchedule;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AdminFunction {
+
     //Clazz & Lecturer Shared Function
     private String chooseTimetable(Scanner scanner) {
         System.out.println("-----TIMETABLE-----");
@@ -291,6 +293,7 @@ public class AdminFunction {
                     return;
             }
         } while (true);
+
         ArrayList<Clazz> clazzes4Lecturer = new ArrayList<>(); //Classes that the Selected Lecturer will teach
         for (int i = 0; i < clazzNumb; i++) {
             Clazz clazz = chooseClazz(clazzes, scanner); //Select Class
@@ -313,6 +316,106 @@ public class AdminFunction {
             System.out.println("Successfully assigned Class "+clazz.getId()+" to Lecturer "+lecturer.getName()+"!");
         }
         Main.lecturerSchedules.add(new LecturerSchedule(lecturer, clazzes4Lecturer));
+    }
+
+
+
+    // Security and Privacy Function
+    private Admin currentAdmin;
+    // Login
+    public boolean login4Admin(Scanner scanner, ArrayList<Admin> admins) {
+        String username;
+        String password;
+
+        System.out.println("Enter Admin Information for Login");
+        int d = 0;
+        // valid username already exits in the list or not
+        do {
+            System.out.print("Enter Admin Username: ");
+            username = scanner.nextLine().trim();
+            for (Admin admin : admins) {
+                if (admin.getUsername().equals(username)) {
+                    d = 1;
+                    break;
+                }
+            }
+            if (d == 0) {
+                System.out.println("Admin Username is not available, try again!");
+            }
+        } while (d == 0);
+        // valid whether password matches username you have just entered or not
+        System.out.print("Enter Admin Password: ");
+        password = scanner.nextLine().trim();
+        d = 0;
+        for (int i = 0; i < admins.size(); i++) {
+            currentAdmin = admins.get(i);
+            if (currentAdmin.getUsername().equals(username) && currentAdmin.getPassword().equals(password)) {
+                d = 1;
+                break;
+            }
+        }
+        if (d == 0) {
+            System.out.println("Password does not match!");
+            return false;
+        }
+
+        return true;
+    }
+
+    // change Username
+    public void changeUsername(Scanner scanner, ArrayList<Admin> admins) {
+        String newUsername;
+        boolean isValid;
+        do {
+            System.out.print("Enter Admin new Username: ");
+            newUsername = scanner.nextLine().trim();
+            isValid = Main.validator.getName(newUsername);
+        } while (!isValid);
+
+        currentAdmin.setUsername(newUsername);
+        System.out.println("Change Admin Username Successfully!");
+    }
+
+    // change Email
+    public void changeEmail(Scanner scanner, ArrayList<Admin> admins) {
+        String newEmail;
+        boolean isValid;
+        do {
+            System.out.print("Enter Admin new Email: ");
+            newEmail = scanner.nextLine().trim();
+            isValid = Main.validator.emailIsValid4Admin(newEmail, admins);
+        } while (!isValid);
+
+        currentAdmin.setEmail(newEmail);
+        System.out.println("Change Admin Email Successfully!");
+    }
+
+    // change Password
+    public void changePassword(Scanner scanner) {
+        String newPassword;
+        boolean isValid;
+        do {
+            System.out.print("Enter Admin new Password: ");
+            newPassword = scanner.nextLine().trim();
+            isValid = Main.validator.passIsValid(newPassword);
+        } while (!isValid);
+
+        currentAdmin.setPassword(newPassword);
+        System.out.println("Change Lecturer Password Successfully!");
+    }
+
+    // change Phone Number
+    public void changePhoneNumb4Admin(Scanner scanner, ArrayList<Admin> admins) {
+        String phoneNumb;
+        boolean isValid;
+        do {
+            System.out.print("Enter Admin new Phone Number: ");
+            phoneNumb = scanner.nextLine().trim();
+            isValid = Main.validator.phoneNumbIsValid4Admin(phoneNumb, admins);
+        } while (!isValid);
+
+        currentAdmin.setPhoneNumb(phoneNumb);
+        System.out.print("Change Admin new Phone Number Successfully! ");
     }
 
 }

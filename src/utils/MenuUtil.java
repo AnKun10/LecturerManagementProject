@@ -14,7 +14,7 @@ public class MenuUtil {
         System.out.println("0 - Exit Program");
     }
 
-    public void displayMainMenu() {
+    public void displayAdminMainMenu() {
         System.out.println("-----WELCOME TO LECTURER MANAGEMENT PROGRAM-----");
         System.out.println("1 - Settings and privacy");
         System.out.println("2 - Lecturer Management");
