@@ -1,7 +1,9 @@
 package logic;
 
+import entity.Admin;
 import main.Main;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class RegisterFunction {
