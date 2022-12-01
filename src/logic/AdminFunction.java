@@ -1,16 +1,10 @@
 package logic;
 
-import constant.SpecialityConstant;
-import constant.TimetableConstant;
-import constant.WorkPlaceConstant;
-
 import entity.Admin;
 import entity.Clazz;
 import entity.Lecturer;
 import entity.LecturerSchedule;
 import main.Main;
-import utils.Validator;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -260,7 +254,7 @@ public class AdminFunction {
     // Security and Privacy Function
     private Admin currentAdmin;
     // Login
-    public boolean login4Admin(Scanner scanner, ArrayList<Admin> admins) {
+    public boolean loginAsAdmin(Scanner scanner, ArrayList<Admin> admins) {
         String username;
         String password;
 

@@ -57,7 +57,7 @@ public class LecturerFunction {
     }
 
     // Login
-    public boolean login4Lecturer(Scanner scanner, ArrayList<Lecturer> lecturers) {
+    public boolean loginAsLecturer(Scanner scanner, ArrayList<Lecturer> lecturers) {
         String username;
         String password;
 
