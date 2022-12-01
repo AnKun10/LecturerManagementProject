@@ -5,7 +5,6 @@ import entity.Clazz;
 import entity.Lecturer;
 import entity.LecturerSchedule;
 import utils.Validator;
-
 import java.util.ArrayList;
 
 public class Main {
@@ -17,5 +16,7 @@ public class Main {
         // Create Admin Account
         ArrayList<Admin> admins = new ArrayList<>();
         admins.add(new Admin("An", 18, "an", "an2122004@gmail.com", "0859015893", "02122004"));
+        admins.add(new Admin("Tâm", 18, "tam", "tam2303@gmail", "0813815263", "23032004"));
+
     }
 }
