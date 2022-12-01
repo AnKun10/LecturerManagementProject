@@ -231,6 +231,7 @@ public class AdminFunction {
 
     // Security and Privacy Function
     private Admin currentAdmin;
+
     // Login
     public boolean loginAsAdmin(Scanner scanner, ArrayList<Admin> admins) {
         String username;

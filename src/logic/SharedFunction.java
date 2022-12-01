@@ -99,4 +99,5 @@ public class SharedFunction {
         }
         return speciality;
     }
+
 }

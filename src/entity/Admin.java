@@ -11,6 +11,8 @@ public class Admin extends Person {
         this.id = ++autoId;
     }
 
+
+
     public int getId() {return id;}
 
     @Override
