@@ -5,6 +5,7 @@ import entity.Clazz;
 import entity.Lecturer;
 import entity.LecturerSchedule;
 import main.Main;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -175,12 +176,12 @@ public class AdminFunction {
                 System.out.println("Lecturer " + lecturerSchedule.getLecturer().getName() + " has been assigned on " + clazz.getTimetable());
                 return false;
             }
-            if (!lecturerSchedule.getLecturer().getSpecialities().equals(clazz.getSpeciality())){
-                System.out.println("Lecturer " + lecturerSchedule.getLecturer().getName() + "'s speciality isn't suitable for Class "+clazz.getId());
+            if (!lecturerSchedule.getLecturer().getSpeciality().equals(clazz.getSpeciality())) {
+                System.out.println("Lecturer " + lecturerSchedule.getLecturer().getName() + "'s speciality isn't suitable for Class " + clazz.getId());
                 return false;
             }
-            if (!lecturerSchedule.getLecturer().getWorkplaces().equals(clazz.getWorkplace())){
-                System.out.println("Lecturer " + lecturerSchedule.getLecturer().getName() + "'s workplace isn't suitable for Class "+clazz.getId());
+            if (!lecturerSchedule.getLecturer().getWorkplace().equals(clazz.getWorkplace())) {
+                System.out.println("Lecturer " + lecturerSchedule.getLecturer().getName() + "'s workplace isn't suitable for Class " + clazz.getId());
                 return false;
             }
         }
@@ -200,6 +201,7 @@ public class AdminFunction {
         System.out.println("ADD LECTURER SCHEDULE FUNCTION");
         System.out.println("Available Lecturers:");
         Lecturer lecturer;
+        boolean isAssigned = false;
         do {
             lecturer = chooseLecturer(lecturers, scanner); //Select a lecturer
             boolean isFreeLecturer = true; //The selected Lecturer is not scheduled
@@ -212,25 +214,67 @@ public class AdminFunction {
                     if (!isAssignableLecturerSchedule(lecturerSchedule)) { //The Lecturer has been assigned the max Classes
                         break;
                     }
-                    do {
+                    do { //The Lecturer has been assigned 1 Class
+                        isAssigned = false;
                         Clazz clazz = chooseClazz(clazzes, scanner); //Select a Class
                         if (clazz == null) {
                             return;
                         }
-                        if (isAssignableLecturerSchedule(lecturerSchedule, clazz)) { //The Lecturer can teach that Class -> Assign
+                        if (isAssignableLecturerSchedule(lecturerSchedule, clazz)) { //The selected Class is suitable for the Lecturer -> Assign
                             lecturerSchedule.getClazzes().add(clazz);
+                            clazz.setAssign(true);
                             System.out.println("Successfully assigned Class " + clazz.getId() + " to Lecturer " + lecturer.getName() + "!");
+                            isAssigned = true; //Successfully Assign Class
                         }
+                        if (isAssigned) {
+                            break;
+                        }
+                        System.out.println("Please choose another Class!");
                     } while (true);
                 }
             }
+            if (isAssigned) {
+                break;
+            }
+            if (isFreeLecturer) { //Case 2: Select a Free Lecturer
+                addLecturerSchedule4FreeLecturer(lecturerSchedules, clazzes, lecturer, scanner); //Assign Class for that Lecturer
+                break;
+            }
+            System.out.println("Please choose another Lecturer!");
         } while (true);
     }
 
+    private void addLecturerSchedule4FreeLecturer(ArrayList<LecturerSchedule> lecturerSchedules, ArrayList<Clazz> clazzes, Lecturer lecturer, Scanner scanner) {
+        int clazzNumb;
+        do {
+            System.out.print("Enter number of Classes to assign to Lecturer " + lecturer.getName() + " (at most 2 Classes/Lecturer): ");
+            clazzNumb = Main.validator.getInt(scanner);
+            if (clazzNumb == 1 || clazzNumb == 2) {
+                break;
+            }
+            System.out.println("Invalid number, please try again!");
+        } while (true);
+        ArrayList<Clazz> clazzes1 = new ArrayList<>();
+        LecturerSchedule lecturerSchedule = new LecturerSchedule(lecturer, clazzes1);
+        for (int i = 0; i < clazzNumb; i++) {
+            Clazz clazz = chooseClazz(clazzes, scanner);
+            if (clazz == null) {
+                return;
+            }
+            if (!isAssignableLecturerSchedule(lecturerSchedule, clazz)) {
+                System.out.println("Please choose another Class!");
+                i--;
+                continue;
+            }
+            lecturerSchedule.getClazzes().add(clazz);
+            System.out.println("Successfully assign Class "+clazz.getId()+" to Lecturer "+lecturer.getName()+"!");
+        }
+    }
 
 
     // Security and Privacy Function
     private Admin currentAdmin;
+
     // Login
     public boolean loginAsAdmin(Scanner scanner, ArrayList<Admin> admins) {
         String username;
@@ -256,8 +300,8 @@ public class AdminFunction {
         System.out.print("Enter Admin Password: ");
         password = scanner.nextLine().trim();
         d = 0;
-        for (int i = 0; i < admins.size(); i++) {
-            currentAdmin = admins.get(i);
+        for (Admin admin : admins) {
+            currentAdmin = admin;
             if (currentAdmin.getUsername().equals(username) && currentAdmin.getPassword().equals(password)) {
                 d = 1;
                 break;

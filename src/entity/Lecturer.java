@@ -3,34 +3,34 @@ package entity;
 import java.util.ArrayList;
 
 public class Lecturer extends Person{
-    private ArrayList<String> specialities;
-    private ArrayList<String> workplaces;
+    private String speciality;
+    private String workplace;
     private int id;
     private static int autoId = 0;
 
-    public Lecturer(String name, int age, String username, String email, String phoneNumb, String password, ArrayList<String> specialities, ArrayList<String> workplaces) {
+    public Lecturer(String name, int age, String username, String email, String phoneNumb, String password, String speciality, String workplace) {
         super(name, age, username, email, phoneNumb, password);
         this.id = ++autoId;
-        this.specialities = specialities;
-        this.workplaces = workplaces;
+        this.speciality = speciality;
+        this.workplace = workplace;
     }
 
     public Lecturer() {}
 
-    public ArrayList<String> getSpecialities() {
-        return specialities;
+    public String getSpeciality() {
+        return speciality;
     }
 
-    public void setSpecialities(ArrayList<String> specialities) {
-        this.specialities = specialities;
+    public void setSpeciality(String speciality) {
+        this.speciality = speciality;
     }
 
-    public ArrayList<String> getWorkplaces() {
-        return workplaces;
+    public String getWorkplace() {
+        return workplace;
     }
 
-    public void setWorkplaces(ArrayList<String> workplaces) {
-        this.workplaces = workplaces;
+    public void setWorkplace(String workplace) {
+        this.workplace = workplace;
     }
 
     public int getId() {
@@ -40,8 +40,8 @@ public class Lecturer extends Person{
     @Override
     public String toString() {
         return "Lecturer{" +
-                "specialities=" + specialities +
-                ", workplaces=" + workplaces +
+                "speciality=" + speciality +
+                ", workplace=" + workplace +
                 ", id=" + id +
                 ", name='" + name + '\'' +
                 ", age=" + age +
