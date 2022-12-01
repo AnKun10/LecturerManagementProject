@@ -7,5 +7,6 @@ public enum RegexConstant {
     NAME("");
 
     public String value;
+
     RegexConstant(String value){this.value = value;}
 }
