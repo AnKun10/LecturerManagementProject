@@ -44,7 +44,7 @@ public class AdminFunction {
             switch (choice) {
                 case 1: //Case 1: Retry to choose
                     break;
-                case 2: //Case 2: User want to go back to the previous page -> return Clazz = null
+                case 2: //Case 2: User want to go back t o the previous page -> return Clazz = null
                     return null;
             }
         } while (true);
@@ -198,4 +198,5 @@ public class AdminFunction {
                 break;
         }
     }
+
 }
