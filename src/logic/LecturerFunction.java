@@ -6,16 +6,20 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LecturerFunction {
-
     private Lecturer currentLecturer;
 
     // Register
     public void register(Scanner scanner, ArrayList<Lecturer> lecturers) {
+        SharedFunction sharedFunction = new SharedFunction();
         Lecturer lecturer = new Lecturer();
         System.out.println("Enter Lecturer Information for Register");
 
-        System.out.print("Name: ");
-        lecturer.setName(scanner.nextLine());
+        boolean isValid;
+        do {
+            System.out.print("Name: ");
+            lecturer.setName(scanner.nextLine());
+            isValid = Main.validator.getName(lecturer.getName());
+        } while(!isValid);
 
         int age;
         do {
@@ -27,7 +31,6 @@ public class LecturerFunction {
             System.out.println("Age must be a positive number");
         } while (true);
 
-        boolean isValid;
         do {
             System.out.print("Username: ");
             lecturer.setUsername(scanner.nextLine().trim());
@@ -52,7 +55,12 @@ public class LecturerFunction {
             isValid = Main.validator.passIsValid(lecturer.getPassword());
         } while (!isValid);
 
-        lecturers.add(lecturer); // Add Lecture to the list
+        // Choose Speciality
+        sharedFunction.chooseSpeciality(scanner);
+        // Choose Workplace
+        sharedFunction.chooseWorkplace(scanner);
+        // Add Lecture to the list
+        lecturers.add(lecturer);
         System.out.println("Register Successfully!");
     }
 
