@@ -21,7 +21,7 @@ public class MenuUtil {
         System.out.println("0 - Logout"); // return to Login Menu
     }
 
-    // After changing Username/ Email/ Password/ PhoneNumber, back to Setting And Privacy Menu
+    // After changing Username/ Email/ Password/ PhoneNumber, back to Setting And Privacy Men                                                                    u
     public void displaySettingsAndPrivacyMenu() {
         System.out.println("1 - Change Username");
         System.out.println("2 - Change Email");
@@ -29,6 +29,7 @@ public class MenuUtil {
         System.out.println("4 - Change Phone Number");
         System.out.println("0 - Back to Main Menu");
     }
+
 
     public void displayLecturerManagementMenu() {
         System.out.println("1 - Update");

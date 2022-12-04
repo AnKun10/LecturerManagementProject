@@ -10,4 +10,5 @@ public enum SpecialityConstant {
     public String value;
 
     SpecialityConstant(String value){this.value = value;}
+    
 }
